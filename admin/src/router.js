@@ -15,7 +15,9 @@ export default new Router({
       component: Main,
       children: [
         { path: '/categories/create', component: CategoryEdit },
-        { path: '/categories/list', component: CategoryList }
+        { path: '/categories/list', component: CategoryList },
+        // 表示把url里的参数注入到CategoryEdit里
+        { path: '/categories/edit/:id', component: CategoryEdit, props: true }
       ]
     },
   ]

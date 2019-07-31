@@ -4,7 +4,7 @@
       <el-menu router :default-openeds="['1', '3']">
         <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-message"></i>内容管理
+            <i class="el-icon-tickets">内容管理</i>
           </template>
           <el-menu-item-group>
             <template slot="title">分类</template>
@@ -26,7 +26,7 @@
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>Ling</span>
       </el-header>
 
       <el-main>
@@ -44,7 +44,7 @@
 
 <style>
 .el-header {
-  background-color: #b3c0d1;
+  background-color: #b2fcff;
   color: #333;
   line-height: 60px;
 }
