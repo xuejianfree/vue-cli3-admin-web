@@ -4,7 +4,7 @@
       <el-menu router :default-openeds="['1', '3']">
         <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-tickets">内容管理</i>
+            <i class="el-icon-tickets"></i>内容管理
           </template>
           <el-menu-item-group>
             <template slot="title">分类</template>

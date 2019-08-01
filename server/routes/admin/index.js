@@ -12,6 +12,13 @@ module.exports = app => {
     const updata = await Category.findByIdAndUpdate(req.params.id, req.body)
     res.send(updata)
   })
+  // 删除分类
+  router.delete('/categories/:id', async (req, res) => {
+    await Category.findByIdAndDelete(req.params.id, req.body)
+    res.send({
+      success: true
+    })
+  })
   // 查询分类
   router.get('/categories', async (req, res) => {
     const items = await Category.find().limit(10)
