@@ -1,33 +1,43 @@
 module.exports = app => {
   const express = require('express')
-  const router = express.Router()
-  const Category = require('../../models/Category')
-  // 创建分类接口
-  router.post('/categories', async (req, res) => {
-    const model = await Category.create(req.body)
+  const router = express.Router({
+    mergeParams: true
+  })
+  
+  // 创建新增
+  router.post('/', async (req, res) => {
+    const model = await req.Model.create(req.body)
     res.send(model)
   })
   // 编辑后更新
-  router.put('/categories/:id', async (req, res) => {
-    const updata = await Category.findByIdAndUpdate(req.params.id, req.body)
+  router.put('/:id', async (req, res) => {
+    const updata = await req.Model.findByIdAndUpdate(req.params.id, req.body)
     res.send(updata)
   })
-  // 删除分类
-  router.delete('/categories/:id', async (req, res) => {
-    await Category.findByIdAndDelete(req.params.id, req.body)
+  // 删除
+  router.delete('/:id', async (req, res) => {
+    await req.Model.findByIdAndDelete(req.params.id, req.body)
     res.send({
       success: true
     })
   })
-  // 查询分类
-  router.get('/categories', async (req, res) => {
-    const items = await Category.find().populate('parent').limit(10)
+  // 查询
+  router.get('/', async (req, res) => {
+    let qureyOptions = {}
+    if (req.Model.modelName === 'Category') {
+      qureyOptions.populate = 'parent'
+    }
+    const items = await req.Model.find().setOptions(qureyOptions).limit(10)
     res.send(items)
   })
-  // 编辑分类
-  router.get('/categories/:id', async (req, res) => {
-    const item = await Category.findById(req.params.id)
+  // 编辑
+  router.get('/:id', async (req, res) => {
+    const item = await req.Model.findById(req.params.id)
     res.send(item)
   })
-  app.use('/admin/api', router)
+  app.use('/admin/api/rest/:resource', async(req, res, next) => {
+    const modelName = require('inflection').classify(req.params.resource)
+    req.Model = require(`../../models/${modelName}`)
+    next()
+  }, router)
 }
