@@ -1,3 +1,8 @@
+## 此项目是本人在B站上学习vue的仿写项目
+## 来源于【全栈之巅】Node.js + Vue.js 全栈开发王者荣耀手机端官网和管理后台
+> 本项目是 [Bilibili 全栈之巅](https://space.bilibili.com/341919508)的视频学习记录
+> 点击此处[原项目地址](https://github.com/wxs77577/node-vue-moba)
+
 # vue3-admin-web
 ## 一、 准备
 1. 工具安装和环境搭建(nodejs,npm,mongodb)
