@@ -19,6 +19,52 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
+      <el-form-item label="称号">
+        <el-row>
+          <el-col :span="8">
+            <el-input v-model="model.title" placeholder="请输入内容"></el-input>
+          </el-col>
+        </el-row>
+      </el-form-item>
+      <el-form-item label="类型">
+        <el-select v-model="model.categories" multiple>
+          <el-option v-for="item of categories" :key="item._id"
+          :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="难度">
+        <el-rate style="margin-top:0.6rem" :max="9" show-score  v-model="model.scores.difficult"></el-rate>
+      </el-form-item>
+      <el-form-item label="技能">
+        <el-rate style="margin-top:0.6rem" :max="9" show-score  v-model="model.scores.skills"></el-rate>
+      </el-form-item>
+      <el-form-item label="攻击">
+        <el-rate style="margin-top:0.6rem" :max="9" show-score  v-model="model.scores.attack"></el-rate>
+      </el-form-item>
+      <el-form-item label="生存">
+        <el-rate style="margin-top:0.6rem" :max="9" show-score  v-model="model.scores.survive"></el-rate>
+      </el-form-item>
+      <el-form-item label="顺风出装">
+        <el-select v-model="model.items1" multiple >
+          <el-option v-for="item of items" :key="item._id"
+          :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="逆风出装">
+        <el-select v-model="model.items2" multiple >
+          <el-option v-for="item of items" :key="item._id"
+          :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="使用技巧">
+        <el-input type="textarea" v-model="model.usageTips"></el-input>
+      </el-form-item>
+      <el-form-item label="对抗技巧">
+        <el-input type="textarea" v-model="model.battleTips"></el-input>
+      </el-form-item>
+      <el-form-item label="团战思路">
+        <el-input type="textarea" v-model="model.teamTips"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
@@ -34,9 +80,14 @@ export default {
   },
   data() {
     return {
+      categories: [],
+      items: [],
       model: {
         name: '',
-        avatar: ''
+        avatar: '',
+        scores: {
+          difficult: 0
+        }
       },
     };
   },
@@ -59,17 +110,28 @@ export default {
     },
     async fetch() {
       const res = await this.$http.get(`rest/heroes/${this.id}`);
-      this.model = res.data;
+      // this.model = res.data;
+      this.model = Object.assign({}, this.model, res.data)
     },
     afterUpload(res) {
       // data中定义了就普通赋值更好
       this.model.avatar = res.url
       // 数据赋不上 显示赋值
       // this.$set(this.model, 'avatar', res.url)
-    }
+    },
+    async fetchCategories() {
+      const res = await this.$http.get(`rest/categories`);
+      this.categories = res.data;
+    },
+    async fetchItems() {
+      const res = await this.$http.get(`rest/items`);
+      this.items = res.data;
+    },
   },
   
   created() {
+    this.fetchItems()
+    this.fetchCategories()
     // 有id说明是点击编辑，才执行
     // 要是编辑分类，就把数据显示在输入框里
     this.id && this.fetch();
