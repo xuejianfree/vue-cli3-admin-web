@@ -77,7 +77,7 @@
           </el-button>
           <el-row type="flex" style="flex-wrap: wrap">
             <el-col :md="12" v-for="(item, i) in model.skills" :key="i">
-              <el-tag>{{i == 0 ? '被动' : i + 1}}技能</el-tag>
+              <el-tag>{{i == 0 ? '被动' : i }}技能</el-tag>
               <el-form-item label="名称">
                 <el-input v-model="item.name"></el-input>
               </el-form-item>
