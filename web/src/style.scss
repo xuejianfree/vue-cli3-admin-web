@@ -1,0 +1,56 @@
+// reset
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+html {
+  font-size: 13px;
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2em;
+  background: #f1f1f1;
+}
+a {
+  color: #999;
+}
+
+// colors
+$colors: (
+  "primary": #de9e3f,
+  "white": #fff,
+  "black": #000,
+  "dark": #222,
+  "dark-1": #343440,
+  "gery": #999,
+  "light": #f9f9f9
+);
+@each $colorKey, $color in $colors {
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  .bg-#{$colorKey} {
+    background-color: $color;
+  }
+}
+// text algin
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var;
+  }
+}
+// font size
+$base-font-size: 1rem;
+$font-sizes: (
+  xs: 0.7692,
+  sm: 0.9231,
+  md: 1,
+  lg: 1.0769,
+  xl: 1.2308
+);
+@each $sizeKey, $size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size;
+  }
+}
