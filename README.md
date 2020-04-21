@@ -1,4 +1,4 @@
-# vue3-admin-web
+# vue-cli3-admin-web
 ## 一、 准备
 1. 工具安装和环境搭建(nodejs,npm,mongodb)
 1. 初始化项目
